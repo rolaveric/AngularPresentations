@@ -1,4 +1,4 @@
-# Presentation 7 - Using ui-router for Nested Routing
+# Presentation 7 - Nested Routing with ui-router
 Demonstrates how the $stateProvider/$state service from the UI-Router project improves over the native $routesProvider/$routes service
 ## Points to discuss
 * Intro to $routeProvider/$route
