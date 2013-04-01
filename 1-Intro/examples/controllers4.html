@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to Angular - Controllers Example 4</title>
+</head>
+<body>
+<div ng-app="MyApp">
+	<div ng-controller="MyCtrl">
+		<div>
+			<strong>Parent myModel.myValue: </strong>
+			<input ng-model="myModel.myValue"/>
+			<em> {{myModel.myValue}}</em>
+		</div>
+		<div ng-controller="ChildCtrl">
+			<div>
+				<strong>Child myModel.myValue: </strong>
+				<input ng-model="myModel.myValue"/>
+				<em> {{myModel.myValue}}</em>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', []);
+
+	function MyCtrl($scope) {
+		$scope.myModel = {
+			myValue: 'My Value'
+		};
+	}
+	function ChildCtrl($scope) {}
+</script>
+</body>
+</html>

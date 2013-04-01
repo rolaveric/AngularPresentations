@@ -162,7 +162,8 @@ angular.module('testApp', []).value('myDataStorage', {
 			</aside>
 		</section>
 
-		<section id="zen-break">			<h1>Zen Moment</h1>
+		<section id="zen-break">
+			<h1>Zen Moment</h1>
 			<div>Image source <a href="http://www.morguefile.com/">http://www.morguefile.com/</a></div>
 
 			<aside class="notes">
@@ -170,6 +171,222 @@ angular.module('testApp', []).value('myDataStorage', {
 				Take a breather<br/>
 				Answer questions
 			</aside>
+		</section>
+
+		<section id="components">
+			<h1>AngularJS Components</h1>
+
+			<aside class="notes">
+				Now I'm going to take you through the main components of AngularJS - the building blocks you'll use to create your application.
+			</aside>
+		</section>
+
+		<section id="templates">
+			<h2>View Templates</h2>
+			<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;strong ng-init="title = 'My App'"&gt;{{title}}&lt;/strong&gt;&lt;br/&gt;
+	&lt;label for="myInput"&gt;Item: &lt;/label&gt;
+	&lt;input id="myInput" ng-model="itemInput"/&gt;
+	&lt;button ng-click="items.push(itemInput)"&gt;Add&lt;/button&gt;
+	&lt;ul ng-init="items = []"&gt;
+		&lt;li ng-repeat="item in items"&gt;{{item}}&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript" src="../../lib/angular.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	angular.module('MyApp', []);
+&lt;/script&gt;</code></pre>
+			<iframe src="examples/htmlTemplates.html"></iframe>
+
+			<aside class="notes">
+				The best place to start is the view templates themselves - the HTML.<br/>
+				The job of the view templates is simply to declare how the view should be structured and what it should do - though not how it should do it.<br/>
+				In this case, there's a label for an input, and input for model 'itemInput', and a button which calls a method on 'push' - it really shouldn't get any more complicated than that.<br/>
+				If it does, you need to be pushing that work back to the CSS or the Javascript to work out.<br/>
+				These attributes you see starting with 'ng-' are directives - behaviour attached to specific elements or attributes.<br/>
+				So when Angular compiles this template at run time, it will check for directives which handle an element called 'input' or an attribute called 'ng-model' and trigger them.
+			</aside>
+		</section>
+
+		<section id="controllers">
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Controllers attach data models to the scope.</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-controller="MyCtrl"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;myValue: &lt;/strong&gt;
+		&lt;input ng-model="myValue"/&gt;
+		&lt;em&gt; {{myValue}}&lt;/em&gt;
+	&lt;/div&gt;
+	&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+function MyCtrl($scope) {
+	$scope.myValue = 'My Value';
+	$scope.myMethod = function (value) {
+		$scope.myValue = value;
+	};
+}
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/controllers1.html"></iframe>
+
+				<aside class="notes">
+					The job of controllers is simple - attach Javascript to the properties of the scope.<br/>
+					Scopes are created by directives, in this case the 'ng-controller' directive which simply creates a scope and attaches a controller named 'MyCtrl' to it, and are attached to the element the scope was created on.<br/>
+					Then any bindings created on the view for that element will use the properties of that scope.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Scopes are attached to the view.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/controllers2.html"></iframe>
+
+				<aside class="notes">
+					You can use the same controller multiple times, with a different scope each time.<br/>
+					So in this case, changes on one won't effect the other because the scopes are different.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Scopes inherit from their parent scope.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;div ng-controller="ChildCtrl"&gt;
+			&lt;div&gt;
+				&lt;strong&gt;myValue: &lt;/strong&gt;
+				&lt;input ng-model="myValue"/&gt;
+				&lt;em&gt; {{myValue}}&lt;/em&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	function ChildCtrl($scope) {}
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/controllers3.html"></iframe>
+
+				<aside class="notes">
+					Scopes will generally inherit from a parent scope already attached to the view.<br/>
+					The exception to this is what's called an 'isolate scope' which is used in making directives that don't interfere with the application they're called from.<br/>
+					<em>Demo example</em><br/>
+					Now notice how at first a change against the parent effects the child, but not in reverse.  And once I change the child's value, they're disconnected.<br/>
+					Anyone have any idea why that is?
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>The scope is NOT your data model.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myModel.myValue: &lt;/strong&gt;
+			&lt;input ng-model="myModel.myValue"/&gt;
+			&lt;em&gt; {{myModel.myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;div ng-controller="ChildCtrl"&gt;
+			&lt;div&gt;
+				&lt;strong&gt;myModel.myValue: &lt;/strong&gt;
+				&lt;input ng-model="myModel.myValue"/&gt;
+				&lt;em&gt; {{myModel.myValue}}&lt;/em&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/controllers4.html"></iframe>
+
+				<aside class="notes">
+					A good rule of thumb for your 'ng-model' values is that they should always have a dot in them.<br/>
+					That means you inherit a reference to the data object, and then alter a property of that object, rather than altering a property on the scope.<br/>
+				</aside>
+			</section>
+		</section>
+
+		<section id="filters">
+			<section>
+				<h2>Filters</h2>
+				<p>Used to transform data.</p>
+				<pre><code>&lt;div ng-app=""&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value" value="My Value"/&gt;
+		&lt;em&gt; {{value | uppercase}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div></code></pre>
+				<iframe src="examples/filters1.html"></iframe>
+
+				<aside class="notes">
+					Filters are simply functions used for taking an input and outputting it in a different format.<br/>
+					You can call them on your templates by using a pipe and then the name of the filter you want to use.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<pre><code>&lt;div ng-app=""&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value"/&gt;
+		&lt;em&gt; {{value | uppercase}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div></code></pre>
+				<iframe src="examples/filters2.html"></iframe>
+
+				<aside class="notes">
+					Filters can also take parameters and be used to transform arrays, like so.<br/>
+					<em>Demo</em><br/>
+					One thing you do need to be aware of is that your filter will rerun every time the $digest loop runs, so you want to keep your filters fast and efficient.
+				</aside>
+			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<p>Filters are defined as a function which returns (or provides) the filter function that gets run.</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-init="value = 'My Value'"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value"/&gt;
+		&lt;em&gt; {{value | ni:' BATANG!'}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	angular.module('MyApp', []).filter('ni', function () {
+		return function (input, suffix) {
+			return input + ' NI!' + suffix;
+		};
+	});
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/filters3.html"></iframe>
+
+				<aside class="notes">
+					When you create a filter you create a function, with whatever dependency injection is required, that returns a function, which is then run with the input as the first parameter.
+				</aside>
+			</section>
 		</section>
 
 	</div>
