@@ -330,7 +330,7 @@ function MyCtrl($scope) {
 		<section id="filters">
 			<section>
 				<h2>Filters</h2>
-				<p>Used to transform data.</p>
+				<p>Take an input and produce a single output</p>
 				<pre><code>&lt;div ng-app=""&gt;
 	&lt;div&gt;
 		&lt;strong&gt;value: &lt;/strong&gt;
@@ -348,11 +348,13 @@ function MyCtrl($scope) {
 
 			<section>
 				<h2>Filters</h2>
-				<pre><code>&lt;div ng-app=""&gt;
+				<p>Filters can take additional parameters:<br/>
+					input:param1:param2:...</p>
+				<pre><code>&lt;div ng-app="" ng-init="value = [1,2,3,4,5,6,7,8,9]; limit = 9"&gt;
 	&lt;div&gt;
-		&lt;strong&gt;value: &lt;/strong&gt;
-		&lt;input ng-model="value"/&gt;
-		&lt;em&gt; {{value | uppercase}}&lt;/em&gt;
+		&lt;strong&gt;Limit To: &lt;/strong&gt;
+		&lt;input ng-model="limit"/&gt;
+		&lt;em&gt; {{value | limitTo:limit}}&lt;/em&gt;
 	&lt;/div&gt;
 &lt;/div></code></pre>
 				<iframe src="examples/filters2.html"></iframe>
@@ -366,7 +368,7 @@ function MyCtrl($scope) {
 
 			<section>
 				<h2>Filters</h2>
-				<p>Filters are defined as a function which returns (or provides) the filter function that gets run.</p>
+				<p>Filters are defined as a function which returns (or provides) the filter function that gets run</p>
 				<pre><code>&lt;div ng-app="MyApp" ng-init="value = 'My Value'"&gt;
 	&lt;div&gt;
 		&lt;strong&gt;value: &lt;/strong&gt;
@@ -387,7 +389,57 @@ function MyCtrl($scope) {
 					When you create a filter you create a function, with whatever dependency injection is required, that returns a function, which is then run with the input as the first parameter.
 				</aside>
 			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<p>They can also be chained together</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-init="value = 'My Value'"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value"/&gt;
+		&lt;em&gt; {{value | uppercase | ni:' BATANG!'}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/filters4.html"></iframe>
+
+				<aside class="notes">
+					Filters can also be chained together
+				</aside>
+			</section>
 		</section>
+
+	<section id="services">
+		<section>
+			<h2>Services</h2>
+			<p>Services are singleton objects that you can inject into other Angular components</p>
+			<pre><code>&lt;div ng-app="MyApp" ng-controller="MyCtrl"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;myService.myValue: &lt;/strong&gt;
+		&lt;input ng-model="myService.myValue"/&gt;
+		&lt;em&gt; {{myService.myValue}}&lt;/em&gt;
+	&lt;/div&gt;
+	&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	angular.module('MyApp', []).factory('myService', function () {
+		return {
+			myValue: 'Service value'
+		};
+	});
+function MyCtrl($scope, myService) {
+	$scope.myService = myService;
+}
+&lt;/script&gt;&lt;/code></pre>
+			<iframe src="examples/services.html"></iframe>
+
+			<aside class="notes">
+				There's really not much that can be said about 'services' as components.<br/>
+				They're singletons, meaning there's only ever one instance, unlike controllers which may run on different scopes.<br/>
+				And they can be injected into other components: controllers, filters, directives, and other services.<br/>
+				Being singletons, services are the best choice for handling cross-controller communication, and as a way to pass around your data model.
+			</aside>
+		</section>
+	</section>
 
 	</div>
 
