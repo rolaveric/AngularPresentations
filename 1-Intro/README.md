@@ -3,7 +3,7 @@ A short introduction to AngularJS that introduces:
 
 * 2 way data binding
 * Dependency injection
-* Directives
+* Main components
 
 The purpose is not to explain in depth how to use these things, but more to give those with no experience with AngularJS some context for the terms that get used.
 
