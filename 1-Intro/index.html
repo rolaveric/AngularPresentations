@@ -23,9 +23,12 @@
 			</div>
 
 			<aside class="notes">
-				Welcome to [x].<br/>
-				My name is [x] and I'm going to spend the next [x] minutes giving you an introduction to AngularJS.<br/>
-				Please feel free to interrupt and ask questions.
+				<ul>
+					<li>Welcome</li>
+					<li>My name is...</li>
+					<li>Talking about...</li>
+					<li>Ask questions</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -37,7 +40,9 @@
 			</div>
 
 			<aside class="notes">
-				Breathe.
+				<ul>
+					<li>Most ask 'what IS?'</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -50,10 +55,12 @@
 			</ul>
 
 			<aside class="notes">
-				AngularJS provides the tools and, most importantly, the structure for writing good browser code.<br/>
-				Code which isn't 80% DOM manipulation with jQuery selections and method chains.<br/>
-				Code which is trivial to test and refactor<br/>
-				And code which just generally feels 'good'.
+				<ul>
+					<li>Provides Structure and Tools</li>
+					<li>Less DOM manipulation</li>
+					<li>Testable Code</li>
+					<li>Fun and feels good</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -61,7 +68,9 @@
 			<h1>How?</h1>
 
 			<aside class="notes">
-				OK, I've just made some pretty bold statements.  How does it do all that?
+				<ul>
+					<li>Bold statements</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -84,9 +93,9 @@ function MyCtrl($scope) {
 				<iframe src="examples/dataBinding.html"></iframe>
 
 				<aside class="notes">
-					2-way data bindings.  Changes to my Javascript data model get reflected on the view, and in reverse too.<br/>
-					Explain what's going on:
 					<ul>
+						<li>View reacts to model changes, and vice versa</li>
+						<li>Walk through example</li>
 						<li>input bound to model 'value' on scope</li>
 						<li>curly brackets creates a binding, which outputs scope 'value'</li>
 						<li>controller provides a method for the scope, triggered on click</li>
@@ -100,11 +109,12 @@ function MyCtrl($scope) {
 				<a href="http://docs.angularjs.org/guide/concepts">http://docs.angularjs.org/guide/concepts</a>
 
 				<aside class="notes">
-					How does it do that?<br/>
-					Not going into too much detail.<br/>
-					When an action is triggered through AngularJS, a $digest loop runs<br/>
-					It dirty checks every binding for changes, rerunning until no changes are found.<br/>
-					Be careful when binding to method calls - will get rerun multiple times.
+					<ul>
+						<li>Magic doesn't happen here</li>
+						<li>Each Angular action triggers $digest</li>
+						<li>Dirty check bindings for changes til none detected</li>
+						<li>Careful with methods in bindings</li>
+					</ul>
 				</aside>
 			</section>
 		</section>
@@ -125,13 +135,13 @@ function MyCtrl($scope) {
 			</dl>
 
 			<aside class="notes">
-				Templates declare the HTML.  They can easily be handed over to a designer.<br/>
-				Directives perform DOM manipulation - Remember when I said AngularJS stops you constantly changing the DOM? That's because the work is encapsulated in directives.
-				AngularJS provides a lot out of the box, but you can create your own.<br/>
-				Controllers are the glue between your Javascript data model and the HTML view model.<br/>
-				Filters are for transforming data, normally for output formatting. eg. Dates and currencies.<br/>
-				Services are your work horses, which can be injected into controllers, filters, and directives as dependencies<br/>
-				Which leads me to... (Dependency Injection)
+				<ul>
+					<li>DOM work wrapped in directives</li>
+					<li>Lots of directives provided</li>
+					<li>Controllers glue data model to view model</li>
+					<li>Filters for formatting</li>
+					<li>Services injected as dependencies</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -157,8 +167,11 @@ angular.module('testApp', []).value('myDataStorage', {
 			</code></pre>
 
 			<aside class="notes">
-				Dependency Injection is what helps to keep all the pieces of our application nicely separated and loosely coupled.<br/>
-				Trivial to switch out mock services for testing, or alternative IO services like databases.
+				<ul>
+					<li>Loose coupling</li>
+					<li>Swap for testing and IO</li>
+					<li>Learning curve sticking point</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -167,9 +180,11 @@ angular.module('testApp', []).value('myDataStorage', {
 			<div>Image source <a href="http://www.morguefile.com/">http://www.morguefile.com/</a></div>
 
 			<aside class="notes">
-				Hit 'b'<br/>
-				Take a breather<br/>
-				Answer questions
+				<ul>
+					<li>Press 'b'</li>
+					<li>Breathe</li>
+					<li>Answer questions</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -177,7 +192,9 @@ angular.module('testApp', []).value('myDataStorage', {
 			<h1>AngularJS Components</h1>
 
 			<aside class="notes">
-				Now I'm going to take you through the main components of AngularJS - the building blocks you'll use to create your application.
+				<ul>
+					<li>Tour building blocks</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -199,12 +216,15 @@ angular.module('testApp', []).value('myDataStorage', {
 			<iframe src="examples/htmlTemplates.html"></iframe>
 
 			<aside class="notes">
-				The best place to start is the view templates themselves - the HTML.<br/>
-				The job of the view templates is simply to declare how the view should be structured and what it should do - though not how it should do it.<br/>
-				In this case, there's a label for an input, and input for model 'itemInput', and a button which calls a method on 'push' - it really shouldn't get any more complicated than that.<br/>
-				If it does, you need to be pushing that work back to the CSS or the Javascript to work out.<br/>
-				These attributes you see starting with 'ng-' are directives - behaviour attached to specific elements or attributes.<br/>
-				So when Angular compiles this template at run time, it will check for directives which handle an element called 'input' or an attribute called 'ng-model' and trigger them.
+				<ul>
+					<li>Declarative</li>
+					<li>What, not How</li>
+					<li>Walk through example</li>
+					<li>Bindings</li>
+					<li>Push complexities to Controller or Directive</li>
+					<li>Point out directives</li>
+					<li>Explain $compile process</li>
+				</ul>
 			</aside>
 		</section>
 
@@ -231,9 +251,10 @@ function MyCtrl($scope) {
 				<iframe src="examples/controllers1.html"></iframe>
 
 				<aside class="notes">
-					The job of controllers is simple - attach Javascript to the properties of the scope.<br/>
-					Scopes are created by directives, in this case the 'ng-controller' directive which simply creates a scope and attaches a controller named 'MyCtrl' to it, and are attached to the element the scope was created on.<br/>
-					Then any bindings created on the view for that element will use the properties of that scope.
+					<ul>
+						<li>Sets $scope properties</li>
+						<li>Scopes created by directives</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -261,8 +282,9 @@ function MyCtrl($scope) {
 				<iframe src="examples/controllers2.html"></iframe>
 
 				<aside class="notes">
-					You can use the same controller multiple times, with a different scope each time.<br/>
-					So in this case, changes on one won't effect the other because the scopes are different.
+					<ul>
+						<li>Same controller - different scope</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -291,11 +313,12 @@ function MyCtrl($scope) {
 				<iframe src="examples/controllers3.html"></iframe>
 
 				<aside class="notes">
-					Scopes will generally inherit from a parent scope already attached to the view.<br/>
-					The exception to this is what's called an 'isolate scope' which is used in making directives that don't interfere with the application they're called from.<br/>
-					<em>Demo example</em><br/>
-					Now notice how at first a change against the parent effects the child, but not in reverse.  And once I change the child's value, they're disconnected.<br/>
-					Anyone have any idea why that is?
+					<ul>
+						<li>Scopes are hierarchical</li>
+						<li>Isolate scopes</li>
+						<li>Walk through example</li>
+						<li>Show scope disconnect</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -321,8 +344,10 @@ function MyCtrl($scope) {
 				<iframe src="examples/controllers4.html"></iframe>
 
 				<aside class="notes">
-					A good rule of thumb for your 'ng-model' values is that they should always have a dot in them.<br/>
-					That means you inherit a reference to the data object, and then alter a property of that object, rather than altering a property on the scope.<br/>
+					<ul>
+						<li>Mutable objects</li>
+						<li>Rule: model bindings have a dot</li>
+					</ul>
 				</aside>
 			</section>
 		</section>
@@ -341,8 +366,10 @@ function MyCtrl($scope) {
 				<iframe src="examples/filters1.html"></iframe>
 
 				<aside class="notes">
-					Filters are simply functions used for taking an input and outputting it in a different format.<br/>
-					You can call them on your templates by using a pipe and then the name of the filter you want to use.
+					<ul>
+						<li>Filters are functions</li>
+						<li>Pipe syntax</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -360,9 +387,10 @@ function MyCtrl($scope) {
 				<iframe src="examples/filters2.html"></iframe>
 
 				<aside class="notes">
-					Filters can also take parameters and be used to transform arrays, like so.<br/>
-					<em>Demo</em><br/>
-					One thing you do need to be aware of is that your filter will rerun every time the $digest loop runs, so you want to keep your filters fast and efficient.
+					<ul>
+						<li>Parameters with colon</li>
+						<li>Performance concern</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -386,7 +414,9 @@ function MyCtrl($scope) {
 				<iframe src="examples/filters3.html"></iframe>
 
 				<aside class="notes">
-					When you create a filter you create a function, with whatever dependency injection is required, that returns a function, which is then run with the input as the first parameter.
+					<ul>
+						<li>Function returns a function</li>
+					</ul>
 				</aside>
 			</section>
 
@@ -403,43 +433,194 @@ function MyCtrl($scope) {
 				<iframe src="examples/filters4.html"></iframe>
 
 				<aside class="notes">
-					Filters can also be chained together
+					<ul>
+						<li>Chaining with multiple pipes</li>
+					</ul>
 				</aside>
 			</section>
 		</section>
 
-	<section id="services">
-		<section>
-			<h2>Services</h2>
-			<p>Services are singleton objects that you can inject into other Angular components</p>
-			<pre><code>&lt;div ng-app="MyApp" ng-controller="MyCtrl"&gt;
-	&lt;div&gt;
+		<section id="services">
+			<section>
+				<h2>Services</h2>
+				<p>Injectable singletons</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
 		&lt;strong&gt;myService.myValue: &lt;/strong&gt;
 		&lt;input ng-model="myService.myValue"/&gt;
 		&lt;em&gt; {{myService.myValue}}&lt;/em&gt;
 	&lt;/div&gt;
-	&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;div ng-controller="MyCtrl"&gt;...&lt;/div&gt;
 &lt;/div&gt;
 &lt;script type="text/javascript"&gt;
-	angular.module('MyApp', []).factory('myService', function () {
-		return {
-			myValue: 'Service value'
-		};
-	});
+angular.module('MyApp', []).factory('myService', function () {
+	return {myValue: 'Service value'};
+});
 function MyCtrl($scope, myService) {
 	$scope.myService = myService;
 }
-&lt;/script&gt;&lt;/code></pre>
-			<iframe src="examples/services.html"></iframe>
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/services.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Singletons</li>
+						<li>Injectable</li>
+						<li>Cross-controller communication</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>Three methods for creating services</p>
+				<ul>
+					<li>value(name, value)</li>
+					<li>factory(name, factoryFn)</li>
+					<li>service(name, constructorFn)</li>
+				</ul>
+
+				<aside class="notes">
+					<ul>
+						<li>3 creation methods</li>
+						<li>Source of confusion</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.value() - Simple key -> value</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.value('myService', {myValue: 'Service value'});
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = myService"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>Simple key-value pairing</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.factory() - Factory method</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.factory('myService', ['anotherService',
+		function (anotherService) {
+			return {myValue: 'Service value'};
+		}]
+	);
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = myService(dependencies)"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>function returns service</li>
+						<li>Can inject dependencies</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.service() - Constructor method</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.service('myService', ['anotherService',
+		function (anotherService) {
+			this.myValue = 'Service value';
+		}]
+	);
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = new myService(dependencies)"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>Most confusing</li>
+						<li>Looks like factory()</li>
+						<li>Define constructor</li>
+						<li>Called with 'new'</li>
+						<li>Which one to use?</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="directives">
+			<h2>Directives</h2>
+			<p>Creating new behaviour on the DOM</p>
+			<p>
+				<a href="http://egghead.io">http://egghead.io/ - John Lindquist</a>
+			</p>
+			<pre><code>&lt;input type="text" my-directive=""/&gt;
+
+&lt;script type="text/javascript"&gt;
+mod.directive('myDirective', ['myService', function (myService) {
+  return {
+    priority: 0,
+    restrict: 'A',
+    replace: false,
+    link: function postLink(scope, iElement, iAttrs) {
+      iElement.bind('click', function (event) {
+        iElement.attr('readonly', !iElement.attr('readonly'));
+      });
+    }
+  };
+}]);
+&lt;script&gt;</code></pre>
+			<iframe src="examples/directives.html"></iframe>
 
 			<aside class="notes">
-				There's really not much that can be said about 'services' as components.<br/>
-				They're singletons, meaning there's only ever one instance, unlike controllers which may run on different scopes.<br/>
-				And they can be injected into other components: controllers, filters, directives, and other services.<br/>
-				Being singletons, services are the best choice for handling cross-controller communication, and as a way to pass around your data model.
+				<ul>
+					<li>Complex - own presentation</li>
+					<li>Used for DOM manipulation</li>
+					<li>All built in directive use same system - eg. ng-repeat</li>
+					<li>Checkout egghead.io</li>
+				</ul>
 			</aside>
 		</section>
-	</section>
+
+		<section id="last">
+			<h2>Go forth, create good code, and enjoy it!</h2>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-email">rolaveric@gmail.com</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+			<br/>
+			<h3>Special Thanks to:</h3>
+			<ul>
+				<li>
+					<a href="http://angularjs.org/">The AngularJS Team</a>
+				</li>
+				<li>
+					<a href="http://nextgen.net/">Nextgen.net</a> (May be hiring: jobs@nextgen.net)
+				</li>
+				<li>
+					<a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+				</li>
+				<li>
+					<a href="http://www.morguefile.com/">morgueFile.com</a>
+				</li>
+			</ul>
+
+			<aside class="notes">
+				And that's the end of my presentation.<br/>
+				We've only just scratched the surface, but hopefully that was enough to whet your apetite.<br/>
+				There's still things like testing, creating advanced directives, promises, URL routing, etc.<br/>
+				And that's just what provided with the AngularJS project.<br/>
+				When you start looking at third-party libraries, like what the Angular UI team provide, you get a lot of cool features.
+			</aside>
+		</section>
 
 	</div>
 

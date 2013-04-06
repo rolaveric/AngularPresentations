@@ -4,17 +4,21 @@
 	<title>Intro to Angular - Services Example</title>
 </head>
 <body>
-<div ng-app="MyApp" ng-controller="MyCtrl">
-	<div>
+<div ng-app="MyApp">
+	<div ng-controller="MyCtrl">
 		<strong>myService.myValue: </strong>
 		<input ng-model="myService.myValue"/>
 		<em> {{myService.myValue}}</em>
 	</div>
-	<button ng-click="myMethod('myValue')">reset</button>
+	<div ng-controller="MyCtrl">
+		<strong>myService.myValue: </strong>
+		<input ng-model="myService.myValue"/>
+		<em> {{myService.myValue}}</em>
+	</div>
 </div>
 <script type="text/javascript" src="../../lib/angular.min.js"></script>
 <script type="text/javascript">
-	angular.module('MyApp', []).factory('myService', function () {
+	angular.module('MyApp', []).service('myService', function () {
 		return {
 			myValue: 'Service value'
 		};
