@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drag and Drop - OS Drag Tester</title>
+	<style type="text/css">
+.drop-target {
+	border: 1px dashed black;
+	border-radius: 4px;
+	width: 400px;
+	height: 50px;
+}
+.drop-target.highlight {
+	border: 2px solid blue;
+}
+	</style>
+</head>
+<body>
+<div ng-app="MyApp" ng-controller="MyCtrl">
+	<div class="drop-target" ng-class="{'highlight': highlight}" ui-event="{'dragenter': 'logEvent($event, dragEnter, true)', 'dragover': 'logEvent($event, dragOver, true)', 'dragleave': 'logEvent($event, dragLeave, false)', 'drop': 'logEvent($event, drop, false)'}"></div>
+	<div ng-repeat="model in models">
+		<strong>{{model.name}}</strong>
+		<ul>
+			<li>
+				<strong>types: </strong>
+				<span>{{model.types}}</span>
+			</li>
+			<li>
+				<strong>effectAllowed: </strong>
+				<span>{{model.effectAllowed}}</span>
+			</li>
+			<li>
+				<strong>files: </strong>
+				<span>{{model.files}}</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript" src="../../lib/angular-ui.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', ['ui']);
+
+	function MyCtrl($scope, $window) {
+		if ($window.jQuery) {
+			// add the dataTransfer property for use with the native `drop` event
+			// to capture information about files dropped into the browser window
+			$window.jQuery.event.props.push("dataTransfer");
+		}
+
+		$scope.dragEnter = {
+			name: 'dragenter'
+		};
+		$scope.dragOver = {
+			name: 'dragover'
+		};
+		$scope.dragLeave = {
+			name: 'dragleave'
+		};
+		$scope.drop = {
+			name: 'drop'
+		};
+		$scope.models = [$scope.dragEnter, $scope.dragOver, $scope.dragLeave, $scope.drop];
+
+		$scope.logEvent = function ($event, model, highlight) {
+			$event.stopPropagation();
+			var dt = $event.dataTransfer;
+			if (dt) {
+				model.types = dt.types;
+				if (dt.hasOwnProperty('effectAllowed')) {
+					model.effectAllowed = dt.effectAllowed;
+				}
+				model.files = dt.files;
+			}
+			$event.preventDefault();
+			$scope.highlight = highlight;
+		};
+	}
+</script>
+</body>
+</html>

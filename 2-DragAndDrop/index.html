@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS Presentations - HTML5 Drag and Drop</title>
+	<meta name="author" content="Jason Stone"/>
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="reveal">
+
+	<div class="slides">
+
+		<section id="splash">
+			<h2 class="splash-heading">HTML5 Drag and Drop</h2>
+			<img class="splash-logo" src="../img/AngularJS-medium.png"/>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-email">rolaveric@gmail.com</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Welcome</li>
+					<li>My name is...</li>
+					<li>Talking about...</li>
+					<li>Ask questions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="demo">
+			<h2>Drag and Drop</h2>
+			<iframe src="examples/demo.html"></iframe>
+
+			<aside class="notes">
+				<ul>
+					<li>Common on OS, but not on the web</li>
+					<li>Traditional way: mouse events and absolute positioning</li>
+					<li>HTML5 let OS/Browser do the work</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="angularui">
+			<h2>Say hello to my little friend...</h2>
+
+			<img class="angular-ui-logo pull-left" src="../img/angularui.png"/>
+			<h3>Angular UI</h3>
+			<a href="http://angular-ui.github.io/">http://angular-ui.github.io/</a>
+			<br/>
+			<br/>
+			<strong>ui-event Directive</strong>
+			<p>ui-event="{'blur': 'blurHandler($event)'}"</p>
+
+			<aside class="notes">
+				<ul>
+					<li>Introduce Angular UI</li>
+					<li>ui-event</li>
+					<li>$event</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="what">
+			<h2>What does 'Drag and Drop' do?</h2>
+
+			<div class="fragment">
+				<p>Transfers data from one element to another<br/> with one of the following effects:</p>
+				<ul>
+					<li>move</li>
+					<li>copy</li>
+					<li>link</li>
+				</ul>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>'data transfer' concept helps design</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="html">
+			<section>
+				<h2>HTML Template</h2>
+				<h3>Draggable Element</h3>
+
+				<pre><code>&lt;li
+  ng-repeat="item in leftList"
+  draggable="true"
+  ui-event="{
+	'dragstart': 'onDragStart($event, item, leftList)',
+	'dragend': 'onDragEnd($event, $index, leftList)'}"
+&gt;
+{{item}}&lt;/li&gt;</code></pre>
+
+				<dl>
+					<dt>draggable</dt>
+					<dd>Indicates the individual element being dragged</dd>
+					<dt>dragstart</dt>
+					<dd>Define data being transferred</dd>
+					<dt>dragend</dt>
+					<dd>React to drop effect</dd>
+				</dl>
+
+				<aside class="notes">
+					<ul>
+						<li>Walk through code</li>
+						<li>draggable on individual element - event handlers can be on parent</li>
+						<li>$index</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>HTML Template</h2>
+				<h3>Drop Target</h3>
+
+				<pre><code>&lt;ul
+  ng-class="{'highlight': leftList.highlight}"
+  ui-event="{
+    'dragenter': 'onDragEnter($event, leftList)',
+    'dragover': 'onDragOver($event, leftList)',
+    'dragleave': 'onDragLeave($event, leftList)',
+    'drop': 'onDrop($event, leftList)'}"&gt;</code></pre>
+
+				<dl>
+					<dt>dragenter</dt>
+					<dd>Check if data transfer is acceptable</dd>
+					<dt>dragover</dt>
+					<dd>React to mouse position</dd>
+					<dt>dragleave</dt>
+					<dd>Undo dragenter changes</dd>
+					<dt>drop</dt>
+					<dd>Complete the data transfer and indicate drop effect</dd>
+				</dl>
+
+				<aside class="notes">
+					<ul>
+						<li>Walk through code</li>
+						<li>Traditional way: mouse events and absolute positioning</li>
+						<li>HTML5 let OS/Browser do the work</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="javascript">
+			<section>
+				<h2>Javascript</h2>
+				<h3>Module</h3>
+
+				<pre><code>angular.module('MyApp', ['ui']);
+
+function MyCtrl($scope, $window) {
+  if ($window.jQuery) {
+    // add the dataTransfer property for use with the native `drop`
+    // event to capture information about files dropped into
+    // the browser window
+    $window.jQuery.event.props.push("dataTransfer");
+  }
+
+  $scope.leftList = ['left1', 'left2', 'left3'];
+  $scope.rightList = ['right1', 'right2', 'right3'];
+
+  // Event Handlers
+  // ...
+}</code></pre>
+
+				<p>jQuery does not include 'dataTransfer' by default</p>
+
+				<aside class="notes">
+					<ul>
+						<li>requires 'ui' module</li>
+						<li>jQuery dataTransfer</li>
+						<li>injects $window</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>dragstart</h3>
+
+				<p>Define data being transferred</p>
+
+				<pre><code>$scope.onDragStart = function ($event, item, originalList) {
+  // Stop the event from bubbling up any further in the DOM
+  $event.stopPropagation();
+
+  var dt = $event.dataTransfer;
+
+  // Indicate what's being moved
+  dt.setData('text/plain', item);
+
+  // Indicate where it came from
+  var o = originalList == $scope.leftList ? 'left' : 'right';
+  dt.setData('application/x-origin-' + o, originalList);
+
+  // Indicate what the drop target is allowed to do with this data
+  dt.effectAllowed = 'move';
+};</code></pre>
+
+				<aside class="notes">
+					<ul>
+						<li>setData stores strings</li>
+						<li>only drop handler can access data</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>dragenter</h3>
+
+				<p>Check if data transfer is acceptable</p>
+
+				<pre><code>$scope.onDragEnter = function ($event, targetList) {
+  $event.stopPropagation();
+  var dt = $event.dataTransfer;
+
+  // Check if what's being dragged has something we want
+  if (dt.types.indexOf('text/plain') != -1 &&
+    // Will allow us to do what we want
+    dt.effectAllowed == 'move' &&
+    // And did not originate from this list
+    dt.types.indexOf('application/x-origin-' + (targetList == $scope.leftList ? 'left' : 'right')) == -1) {
+
+    // Default is to reject draggables
+    $event.preventDefault();
+
+    // Add styling
+    targetList.highlight = true;
+  }
+};</code></pre>
+
+				<aside class="notes">
+					<ul>
+						<li>Checks dataTransfer is acceptable</li>
+						<li>Prevents default</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>dragover</h3>
+
+				<p>dragenter with mouse location</p>
+
+				<pre><code>$scope.onDragOver = function ($event, targetList) {
+  // Not using mouse location, so same as dragenter
+  $scope.onDragEnter($event, targetList);
+};</code></pre>
+
+				<p>Important thing is to call $event.preventDefault()</p>
+
+				<aside class="notes">
+					<ul>
+						<li>Like mouseover</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>dragleave</h3>
+
+				<p>Undo dragenter changes</p>
+
+				<pre><code>$scope.onDragLeave = function ($event, targetList) {
+  $event.stopPropagation();
+
+  // Remove styling
+  targetList.highlight = false;
+};</code></pre>
+
+				<aside class="notes">
+					<ul>
+						<li>Reverse dragenter changes</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>drop</h3>
+
+				<p>Complete the data transfer and indicate drop effect</p>
+
+				<pre><code>$scope.onDrop = function ($event, targetList) {
+  $event.stopPropagation();
+  var dt = $event.dataTransfer;
+
+  // Remove styling
+  targetList.highlight = false;
+
+  // Check data transfer is acceptable
+  if (...) {
+    $event.preventDefault();
+
+    // Transfer Data
+    targetList.push(dt.getData('text/plain'));
+
+    // Indicate the effect of the drop
+    dt.dropEffect = 'move';
+  }
+};</code></pre>
+
+				<aside class="notes">
+					<ul>
+						<li>Reverse dragenter changes</li>
+						<li>Complete the data transfer</li>
+						<li>indicate drop effect</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Javascript</h2>
+				<h3>dragend</h3>
+
+				<p>React to drop effect</p>
+
+				<pre><code>$scope.onDragEnd = function ($event, index, originalList) {
+  $event.stopPropagation();
+
+  // If the drop caused a move, remove it from the original list
+  if ($event.dataTransfer.dropEffect != 'none') {
+    originalList.splice(index, 1);
+  }
+};</code></pre>
+
+				<aside class="notes">
+					<ul>
+						<li>Event - What happened?</li>
+						<li>Chrome dropEffect bug</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="fromos">
+			<h2>Dragging from the OS</h2>
+			<iframe src="examples/os.html"></iframe>
+
+			<aside class="notes">
+				<ul>
+					<li>Can drag from OS</li>
+					<li>Includes files</li>
+					<li>Requires extensive, manual testing</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="relevance">
+			<h2>What does this have to do with AngularJS?</h2>
+
+			<div class="fragment">
+				<p>See any DOM manipulation?</p>
+				<p>It's not what it does - It's what you didn't have to do</p>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Can drag from OS</li>
+					<li>Includes files</li>
+					<li>Requires extensive, manual testing</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="last">
+			<h2>Go forth, create good code, and enjoy it!</h2>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-email">rolaveric@gmail.com</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+			<br/>
+			<h3>Special Thanks to:</h3>
+			<ul>
+				<li>
+					<a href="http://angularjs.org/">The AngularJS Team</a>
+				</li>
+				<li>
+					<a href="http://angular-ui.github.io/">The Angular UI Team</a>
+				</li>
+				<li>
+					<a href="http://nextgen.net/">Nextgen.net</a> (May be hiring: jobs@nextgen.net)
+				</li>
+				<li>
+					<a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+				</li>
+			</ul>
+
+			<aside class="notes">
+				<ul>
+					<li>Check MDN for references</li>
+				</ul>
+			</aside>
+		</section>
+
+	</div>
+
+</div>
+<script type="text/javascript" src="../lib/reveal/lib/js/head.min.js"></script>
+<script type="text/javascript" src="../lib/reveal/js/reveal.min.js"></script>
+<script type="text/javascript" src="../js/presentationInit.js"></script>
+</body>
+</html>
