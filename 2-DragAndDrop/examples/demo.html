@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drag and Drop - Demo Example</title>
+	<style type="text/css">
+ul {
+	border: 1px solid black;
+	border-radius: 4px;
+	list-style: none;
+	width: 200px;
+	padding: 0;
+}
+ul.highlight {
+	border: 2px solid blue;
+}
+
+ul li {
+	border: 1px solid black;
+	margin: 5px;
+}
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+	</style>
+</head>
+<body>
+<div ng-app="MyApp" ng-controller="MyCtrl">
+	<div>
+		<ul class="pull-left" ng-class="{'highlight': leftList.highlight}" ui-event="{'dragenter': 'onDragEnter($event, leftList)', 'dragover': 'onDragOver($event, leftList)', 'dragleave': 'onDragLeave($event, leftList)', 'drop': 'onDrop($event, leftList)'}">
+			<li ng-repeat="item in leftList" draggable="true" ui-event="{'dragstart': 'onDragStart($event, item, leftList)', 'dragend': 'onDragEnd($event, $index, leftList)'}">{{item}}</li>
+		</ul>
+		<ul class="pull-right" ng-class="{'highlight': rightList.highlight}" ui-event="{'dragenter': 'onDragEnter($event, rightList)', 'dragover': 'onDragOver($event, rightList)', 'dragleave': 'onDragLeave($event, rightList)', 'drop': 'onDrop($event, rightList)'}">
+			<li ng-repeat="item in rightList" draggable="true" ui-event="{'dragstart': 'onDragStart($event, item, rightList)', 'dragend': 'onDragEnd($event, $index, rightList)'}">{{item}}</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript" src="../../lib/angular-ui.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', ['ui']);
+
+	function MyCtrl($scope, $window) {
+		if ($window.jQuery) {
+			// add the dataTransfer property for use with the native `drop` event
+			// to capture information about files dropped into the browser window
+			$window.jQuery.event.props.push("dataTransfer");
+		}
+
+		$scope.leftList = ['left1', 'left2', 'left3'];
+		$scope.rightList = ['right1', 'right2', 'right3'];
+
+		$scope.onDragStart = function ($event, item, originalList) {
+			// Stop the event from bubbling up any further in the DOM
+			$event.stopPropagation();
+
+			var dt = $event.dataTransfer;
+
+			// Indicate what's being moved
+			dt.setData('text/plain', item);
+
+			// Indicate where it came from
+			var o = originalList == $scope.leftList ? 'left' : 'right';
+			dt.setData('application/x-origin-' + o, originalList);
+
+			// Indicate what the drop target is allowed to do with this data
+			dt.effectAllowed = 'move';
+		};
+
+		$scope.onDragEnd = function ($event, index, originalList) {
+			$event.stopPropagation();
+			// If the drop caused a move, remove it from the original list
+			if ($event.dataTransfer.dropEffect != 'none') {
+				originalList.splice(index, 1);
+			}
+		};
+
+		$scope.onDragEnter = function ($event, targetList) {
+			$event.stopPropagation();
+			var dt = $event.dataTransfer;
+
+			// Check if what's being dragged has something we want
+			if (dt.types.indexOf('text/plain') != -1 &&
+				// Will allow us to do what we want
+					dt.effectAllowed == 'move' &&
+				// And did not originate from this list
+					dt.types.indexOf('application/x-origin-' + (targetList == $scope.leftList ? 'left' : 'right')) == -1) {
+
+				// Default is to reject draggables
+				$event.preventDefault();
+
+				// Add styling
+				targetList.highlight = true;
+			}
+		};
+
+		$scope.onDragOver = function ($event, targetList) {
+			// Not using mouse location, so same as dragenter
+			$scope.onDragEnter($event, targetList);
+		};
+
+		$scope.onDragLeave = function ($event, targetList) {
+			$event.stopPropagation();
+
+			// Remove styling
+			targetList.highlight = false;
+		};
+
+		$scope.onDrop = function ($event, targetList) {
+			$event.stopPropagation();
+			var dt = $event.dataTransfer;
+
+			// Remove styling
+			targetList.highlight = false;
+
+			// Check data transfer is acceptable
+			if (dt.types.indexOf('text/plain') != -1 && dt.effectAllowed == 'move' && dt.types.indexOf('application/x-origin-' + (targetList == $scope.leftList ? 'left' : 'right')) == -1) {
+				$event.preventDefault();
+
+				// Transfer Data
+				targetList.push(dt.getData('text/plain'));
+
+				// Indicate the effect of the drop
+				dt.dropEffect = 'move';
+			}
+		};
+	}
+</script>
+</body>
+</html>
