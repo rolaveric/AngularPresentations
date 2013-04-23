@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<title>Intro to Angular - Live Demo</title>
+</head>
+<body ng-controller="MyCtrl">
+	<h1>Angular Loan</h1>
+	<h3>Form Model</h3>
+<pre><code>{{formModel | json}}</code></pre>
+<script type="text/javascript">
+	function MyCtrl($scope) {
+		$scope.formModel = {};
+
+
+		$scope.products = [
+			{malid: '1', name: 'Basic Variable', repaymentType: ['PrincipalAndInterest', 'InterestOnly']},
+			{malid: '2', name: 'Super Variable', repaymentType: ['PrincipalAndInterest', 'InterestOnly'], minAmount: 300000},
+			{malid: '3', name: 'Fixed 1 year', repaymentType: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [0, 1]},
+			{malid: '3', name: 'Fixed 3 year', repaymentType: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [0, 1, 2, 3]},
+			{malid: '3', name: 'Premium Fixed 5 year', repaymentType: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [5]}
+		];
+	}
+</script>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript" src="../../lib/angular-ui.min.js"></script>
+</body>
+</html>
