@@ -1,0 +1,50 @@
+@import "../lib/reveal/css/reveal.css";
+
+@import "../lib/reveal/css/theme/beige.css";
+
+@import "../lib/reveal/lib/css/zenburn.css";
+.splash-heading {
+  height: 20%;
+}
+.splash-logo {
+  height: 30%;
+}
+.author {
+  margin-top: 30px;
+  height: 30%;
+  vertical-align: bottom;
+}
+.author .author-name {
+  font-weight: bold;
+}
+.reveal section .huge {
+  font-size: 700%;
+}
+.reveal section img {
+  border: none;
+}
+.reveal section dl {
+  text-align: left;
+}
+.reveal section dl dt {
+  font-weight: bold;
+  float: left;
+  clear: left;
+  margin-right: 12px;
+}
+.reveal section dl dt:after {
+  content: ":";
+}
+.reveal section dl dd {
+  float: left;
+}
+.reveal iframe {
+  width: 500px;
+  height: 400px;
+}
+.pull-left {
+  float: left;
+}
+.reveal.paused .pause-overlay {
+  background-image: url("../img/zen1.jpg");
+}

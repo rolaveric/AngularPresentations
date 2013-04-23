@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<title>Intro to Angular - Data Binding Example</title>
+</head>
+<body ng-controller="MyCtrl">
+<div>
+	<input ng-model="model.string"/><br/>
+	<button ng-click="reverseValue()">reverse</button>
+</div>
+<div>
+	<div ng-hide="model.hide">
+		<blockquote>
+			Stuff in a space with more stuff!
+		</blockquote>
+	</div>
+	<div>
+		<button ng-click="model.hide=!model.hide">Toggle</button>
+	</div>
+</div>
+<pre><code>{{model | json}}</code></pre>
+<script type="text/javascript">
+	function MyCtrl($scope) {
+		$scope.model = {
+			string: ''
+		};
+		$scope.reverseValue = function () {
+			$scope.model.string = $scope.model.string.split('').reverse().join('');
+		}
+	}
+</script>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+</body>
+</html>
