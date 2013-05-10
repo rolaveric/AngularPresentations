@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<title>URL Stating with ui-router</title>
+	<link rel="stylesheet" href="style.css" type="text/css"/>
+</head>
+<body ng-controller="AppCtrl">
+
+<div>
+	<h1>URL Routing with ui-router</h1>
+	<h2 ng-show="loading">Loading State...</h2>
+	<a href="#/orders">Orders</a>
+	<div ui-view=""></div>
+</div>
+<pre><strong>$stateParams:</strong><code>{{$stateParams | json}}</code></pre>
+
+<script type="text/javascript" src="../../lib/underscore-min.js"></script>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript" src="../../lib/angular-ui-states.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
+</body>
+</html>

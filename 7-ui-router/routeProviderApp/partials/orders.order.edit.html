@@ -1,0 +1,26 @@
+<div>
+	<div ng-include="'partials/orders.html'"></div>
+	<div class="order-edit">
+		<h3>Order: {{order.orderId}}</h3>
+		<div>
+			<strong>Customer:</strong>
+			<input ng-model="order.customer"/>
+		</div>
+		<div>
+			<strong>Address:</strong>
+			<input ng-model="order.address"/>
+		</div>
+		<div>
+			<strong>Items:</strong>
+			<ul>
+				<li ng-repeat="item in order.items">
+					<span>{{item.itemId}}</span>
+					<input ng-model="item.quantity"/>
+				</li>
+			</ul>
+		</div>
+		<div class="actions">
+			<a class="btn btn-primary" ng-href="#/orders/{{order.orderId}}">Save</a>
+		</div>
+	</div>
+</div>

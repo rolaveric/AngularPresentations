@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS Presentations - ui-router</title>
+	<meta name="author" content="Jason Stone"/>
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="reveal">
+
+	<div class="slides">
+
+		<section id="splash">
+			<h1>UI Router</h1>
+			<img class="splash-logo" src="../img/AngularJS-medium.png"/>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric" target="_blank">https://github.com/rolaveric</a>
+				</div>
+			</div>
+
+			<aside class="notes">
+				<p>I'm going to talk about Angular's URL routing system, and how ui-router improves on it.</p>
+			</aside>
+		</section>
+
+		<section id="routing">
+			<h2>URL Routing</h2>
+			<p>Mapping a URL to a combination of:</p>
+			<ul>
+				<li>Controller</li>
+				<li>Template</li>
+				<li>Dependency Providers</li>
+			</ul>
+
+			<aside class="notes">
+				<p>Just quickly for those that aren't aware, when I talk about routing I'm talking about this idea of the URL having a dynamic effect upon the application.<br/>
+				In the case of Angular, this means loading a new 'View' with it's own template and controller.</p>
+			</aside>
+		</section>
+
+		<section id="routeProvider">
+			<h3>$routeProvider demo</h3>
+
+			<aside class="notes">
+				<p>I'm going to jump in, feet first, and show you a simple application using URL routing.<br/>
+				<em>[Load application]</em></p>
+			</aside>
+		</section>
+
+		<section id="dom">
+			<h3>$route/$routeProvider short comings</h3>
+
+			<ul>
+				<li>Only 1 ng-view allowed</li>
+				<li>No hierarchy</li>
+			</ul>
+
+			<aside class="notes">
+				<p>So to recap, Angular's native routing is a great tool and most of the time, it's all we really need.<br/>
+				But it has a few things that stop it from being GREAT.  The main one being the fact that you have only 1 ng-view to deal with.<br/>
+				Did you see how I had to use ng-include to build up the template to make use of previous templates?<br/>
+				Also, what if I wanted to create a sidebar or something?  It can be done, but it starts to get... fiddly.</p>
+			</aside>
+		</section>
+
+		<section id="untestable">
+			<h2>ui-router to the rescue</h2>
+			<p></p>
+
+			<aside class="notes">
+				<p>So now I'll show you how ui-router attempts to fix those short comings.</p>
+				<em>[Convert application to ui-router]</em>
+			</aside>
+		</section>
+
+		<section id="last">
+			<h2>Go forth, create good code, and enjoy it!</h2>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric" target="_blank">https://github.com/rolaveric</a>
+				</div>
+			</div>
+			<br/>
+			<h3>Special Thanks to:</h3>
+			<ul>
+				<li>
+					<a href="http://angularjs.org/">The AngularJS Team</a>
+				</li>
+				<li>
+					<a href="http://angular-ui.github.io/">The Angular UI Team</a>
+				</li>
+				<li>
+					<a href="http://nextgen.net/">Nextgen.net</a> For preventing me from starving.<br/>
+					PS: May be hiring - jobs@nextgen.net
+				</li>
+			</ul>
+		</section>
+
+	</div>
+
+</div>
+<script type="text/javascript" src="../lib/reveal/lib/js/head.min.js"></script>
+<script type="text/javascript" src="../lib/reveal/js/reveal.min.js"></script>
+<script type="text/javascript" src="../js/presentationInit.js"></script>
+</body>
+</html>
