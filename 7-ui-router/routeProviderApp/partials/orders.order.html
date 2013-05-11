@@ -14,7 +14,7 @@
 			<strong>Items:</strong>
 			<ul>
 				<li ng-repeat="item in order.items">
-					<a ng-href="#/items/{{item.itemId}}">{{item.itemId}}</a>
+					<a class="link" ng-href="#/items/{{item.itemId}}">{{item.itemId}}</a>
 					<span> &times; {{item.quantity}}</span>
 				</li>
 			</ul>
