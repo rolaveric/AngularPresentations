@@ -4,7 +4,7 @@
 
 	// Define the States and URL stating
 	mod.config(['$stateProvider', '$urlRouterProvider',
-		function ($stateProvider,$urlRouterProvider) {
+		function ($stateProvider, $urlRouterProvider) {
 			// Providers
 
 			var ordersProvider = ['myDataService',

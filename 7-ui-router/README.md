@@ -1,9 +1,10 @@
-# Presentation 7 - Nested Routing with ui-router
+# Presentation 7 - Routing with ui-router
 Central messages:
 * URL routing removes the 'on load' work from controllers
 * ui-router fixes the short-comings of the native $routeProvider service, by:
 ** providing a hierarchical structure for declaring 'states'.
 ** providing named views.
+* How to test routing
 ## Presentation Structure
 * Short intro - AngularJS can do URL routing
 ** "What's that?": Different URL loads (or 'routes' to) different template and controller, as well as resolving dependencies
@@ -23,6 +24,8 @@ Central messages:
 ** Include library
 ** Breakup routes into states
 ** Breakup templates to use 'ui-view'
+** Unit Testing: Use angular.mock.module() to capture providers for alteration
+** E2E Testing: Test that click events and URLs produce the correct state
 ## Links
 * [ui-router Github](https://github.com/angular-ui/ui-router)
 * [ui-router Wiki Overview](https://github.com/angular-ui/ui-router/wiki)
