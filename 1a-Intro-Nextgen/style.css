@@ -45,6 +45,3 @@
 .pull-left {
   float: left;
 }
-.reveal.paused .pause-overlay {
-  background-image: url("../img/zen1.jpg");
-}

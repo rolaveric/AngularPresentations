@@ -121,30 +121,23 @@ if (sRepaymentMethod === 'DirectDebitExistingAccount') {
 
 		<section id="templating">
 			<h2>HTML templating</h2>
-			<pre><code>&lt;xsl:template match="DocumentClass"&gt;
-  &lt;xsl:variable name="inputname"
-                select="concat('LISTDOCS-PARAM-DOCCLASS-',@id)"/&gt;
-  &lt;td style="width:190px;border:1px"&gt;
-    &lt;input type="checkbox" name="{$inputname}" value="Y"&gt;
-      &lt;xsl:if test="/ListDocForm/ValueList/FormValue[@name=$inputname]/text() = 'Y'"&gt;
-        &lt;xsl:attribute name="checked"/&gt;
-      &lt;/xsl:if&gt;
-      &lt;input type="hidden" name="{$inputname}" value="N"/&gt;
-    &lt;/input&gt;
-    &lt;xsl:value-of select="."/&gt;
-  &lt;/td&gt;
-&lt;/xsl:template&gt;</code></pre>
-			<strong>vs</strong>
-			<pre><code>&lt;td ng-repeat="docClass in workflow.docClasses"&gt;
-  &lt;input type="checkbox" ng-model="docClass.selected" ng-true-value="Y" ng-false-value="N"/&gt;
-  {{docClass.description}}
-&lt;/td&gt;</code></pre>
+			<pre><code>&lt;li ng-repeat="item in list"&gt;
+  {{item}}
+&lt;/li&gt;</code></pre>
 
 			<aside class="notes">
 				<ul>
-					<li>12 lines vs 3</li>
-					<li>Minimises all of these problems</li>
-					<li>Provides way more</li>
+					<li>Minimises templating problems</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="html6">
+			<blockquote>HTML6? I heard they're calling it AngularJS</blockquote>
+
+			<aside class="notes">
+				<ul>
+					<li>Can create new HTML behaviour in AngularJS</li>
 				</ul>
 			</aside>
 		</section>
@@ -157,29 +150,50 @@ if (sRepaymentMethod === 'DirectDebitExistingAccount') {
 				<ul>
 					<li>Point out model output</li>
 					<li>Show off</li>
-					<li>The 'model' is the source of truth</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="model">
+			<h2>Your data becomes the source of truth</h2>
+			<p>{section1Visible: true, section2Visible: false}</p>
+
+			<aside class="notes">
+				<ul>
+					<li>2-way data binding removes a lot of work</li>
 				</ul>
 			</aside>
 		</section>
 
 		<section id="injection">
 			<h2>Dependency Injection</h2>
-			<pre><code class="javascript">function (a, b, c) {
-  return a + b + c;
+			<pre><code class="javascript">function (b, c) {
+  return function (a) {
+    return a + b + c;
+  }
 }</code></pre>
 
 			<aside class="notes">
 				<ul>
 					<li>Loose coupling</li>
 					<li>Swap for testing and IO</li>
-					<li>Learning curve sticking point</li>
 				</ul>
 			</aside>
 		</section>
 
-		<section id="zen-break">
-			<h1>Zen Moment</h1>
-			<div>Image source <a href="http://www.morguefile.com/">http://www.morguefile.com/</a></div>
+		<section id="nomagic">
+			<h2>There is no such thing as magic</h2>
+
+			<aside class="notes">
+				<ul>
+					<li>Learning curve sticking point</li>
+					<li>Concept of the injector and it's providers</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="questions">
+			<h1>Questions?</h1>
 
 			<aside class="notes">
 				<ul>
@@ -218,6 +232,10 @@ if (sRepaymentMethod === 'DirectDebitExistingAccount') {
 			<h2>Replace AOLM</h2>
 		</section>
 
+		<section id="yeoman">
+			<img src="../img/yeoman-logo.png"/>
+		</section>
+
 		<section id="last">
 			<h2>Go forth, create good code, and enjoy it!</h2>
 			<div class="author">
@@ -237,9 +255,6 @@ if (sRepaymentMethod === 'DirectDebitExistingAccount') {
 				</li>
 				<li>
 					<a href="https://github.com/hakimel/reveal.js">reveal.js</a>
-				</li>
-				<li>
-					<a href="http://www.morguefile.com/">morgueFile.com</a>
 				</li>
 			</ul>
 
