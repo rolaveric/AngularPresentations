@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<title>Intro to Angular - Live Demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" type="text/css" href="../../lib/bootstrap.min.css"/>
+</head>
+<body ng-controller="MyCtrl">
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<h1>Angular Loan</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span12">
+
+<form name="loanPortion">
+	<label>Base Amount</label>
+	<input type="number" ng-model="dataModel.amount"/>
+	<label>LMI</label>
+	<input type="number" ng-model="dataModel.lmi"/>
+	<label>Amount</label>
+	{{dataModel.amount + dataModel.lmi | currency}}
+	<label>Product</label>
+	<select ng-model="dataModel.product" ng-options="p as p.name for p in products"></select>
+	<label>Repayment Type</label>
+	<select ng-model="dataModel.repaymentType" ng-options="t for t in dataModel.product.repaymentTypes"></select>
+</form>
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span12">
+			<h3>Form Model</h3>
+			<pre><code>{{dataModel | json}}</code></pre>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function MyCtrl($scope) {
+		$scope.formModel = {};
+
+
+		$scope.products = [
+			{malid: '1', name: 'Basic Variable', repaymentTypes: ['PrincipalAndInterest', 'InterestOnly']},
+			{malid: '2', name: 'Super Variable', repaymentTypes: ['PrincipalAndInterest', 'InterestOnly'], minAmount: 300000},
+			{malid: '3', name: 'Fixed 1 year', repaymentTypes: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [0, 1]},
+			{malid: '4', name: 'Fixed 3 year', repaymentTypes: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [0, 1, 2, 3]},
+			{malid: '5', name: 'Premium Fixed 5 year', repaymentTypes: ['InterestOnly', 'CapitalisedInterest'], minAmount: 200000, maxAmount: 500000, interestOnlyOptions: [5]}
+		];
+	}
+</script>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript" src="../../lib/angular-ui.min.js"></script>
+</body>
+</html>

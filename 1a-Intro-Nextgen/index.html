@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS Presentations - Introduction to AngularJS</title>
+	<meta name="author" content="Jason Stone"/>
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="reveal">
+
+	<div class="slides">
+
+		<section id="splash">
+			<img class="splash-logo" src="../img/AngularJS-medium.png"/>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Welcome</li>
+					<li>Plan: Quick presentation, then live dev</li>
+					<li>Ask questions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="pain">
+			<h2>What's wrong?</h2>
+
+			<aside class="notes">
+				<ul>
+					<li>August last year, started discussing client-side frameworks</li>
+					<li>trigger: Reworking modal dialogs</li>
+					<li>Who has worked with our modals?</li>
+					<li>Was it 'fun'?  Why not?</li>
+					<li>Confusing.  Hard to follow.  Tricky to test.</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="xslt">
+			<h3>Verbose XSLT</h3>
+			<pre><code>&lt;xsl:template match="DocumentClass"&gt;
+  &lt;xsl:variable name="inputname"
+                select="concat('LISTDOCS-PARAM-DOCCLASS-',@id)"/&gt;
+  &lt;td style="width:190px;border:1px"&gt;
+    &lt;input type="checkbox" name="{$inputname}" value="Y"&gt;
+      &lt;xsl:if test="/ListDocForm/ValueList/FormValue[@name=$inputname]/text() = 'Y'"&gt;
+        &lt;xsl:attribute name="checked"/&gt;
+      &lt;/xsl:if&gt;
+      &lt;input type="hidden" name="{$inputname}" value="N"/&gt;
+    &lt;/input&gt;
+    &lt;xsl:value-of select="."/&gt;
+  &lt;/td&gt;
+&lt;/xsl:template&gt;</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>What does it do?</li>
+					<li>Lot of code for a simple concept</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="dom">
+			<h3>Complex DOM Manipulation</h3>
+			<pre><code class="javascript">var sRepaymentMethod = RepeatingGetElement(poRow, 'LPRepaymentMethod').value;
+var oRepayFreqRow = RepeatingGetElement(poRow, 'LPRepaymentFrequency').parentNode.parentNode;
+var oEmployerRow = RepeatingGetElement(poRow, 'LPRepaymentEmployer').parentNode.parentNode;
+var oAccountRow1 = RepeatingGetElement(poRow, 'LPRepaymentAccountName').parentNode.parentNode;
+var oAccountRow2 = RepeatingGetElement(poRow, 'LPRepaymentAccountBSB').parentNode.parentNode;
+if (sRepaymentMethod === 'DirectDebitExistingAccount') {
+  oRepayFreqRow.style.display = 'inline';
+  oAccountRow1.style.display = 'block';
+  oAccountRow2.style.display = 'block';
+  oEmployerRow.style.display = 'none';
+}</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>A lot for so little</li>
+					<li>Only a snippet of 1 of many functions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="untestable">
+			<h3>Painful To Test</h3>
+			<pre><code class="javascript">function (a) {
+  return a + b + c;
+}</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>A contrived example</li>
+					<li>Where does B and C come from?</li>
+					<li>Ask: How can we test this?</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="enter">
+			<h2>Enter AngularJS</h2>
+			<div>
+				<img class="shield" src="../img/AngularJS-Shield-medium.png"/>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Here's where AngularJS comes in</li>
+					<li>Minimises all of these problems</li>
+					<li>Provides way more</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="templating">
+			<h2>HTML templating</h2>
+			<pre><code>&lt;li ng-repeat="item in list"&gt;
+  {{item}}
+&lt;/li&gt;</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>Minimises templating problems</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="html6">
+			<blockquote>HTML6? I heard they're calling it AngularJS</blockquote>
+
+			<aside class="notes">
+				<ul>
+					<li>Can create new HTML behaviour in AngularJS</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="two-way">
+			<h2>2-way data binding</h2>
+			<iframe src="examples/dataBinding.html"></iframe>
+
+			<aside class="notes">
+				<ul>
+					<li>Point out model output</li>
+					<li>Show off</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="model">
+			<h2>Your data becomes the source of truth</h2>
+			<p>{section1Visible: true, section2Visible: false}</p>
+
+			<aside class="notes">
+				<ul>
+					<li>2-way data binding removes a lot of work</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="injection">
+			<h2>Dependency Injection</h2>
+			<pre><code class="javascript">function (b, c) {
+  return function (a) {
+    return a + b + c;
+  }
+}</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>Loose coupling</li>
+					<li>Swap for testing and IO</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="nomagic">
+			<h2>There is no such thing as magic</h2>
+
+			<aside class="notes">
+				<ul>
+					<li>Learning curve sticking point</li>
+					<li>Concept of the injector and it's providers</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="questions">
+			<h1>Questions?</h1>
+
+			<aside class="notes">
+				<ul>
+					<li>Press 'b'</li>
+					<li>Breathe</li>
+					<li>Answer questions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="livedev">
+			<h1>Live Development</h1>
+			<h2>Never done before</h2>
+			<h3>Ever</h3>
+			<h4>... Honest</h4>
+		</section>
+
+		<section id="what">
+			<h1>What can we do with it?</h1>
+		</section>
+
+		<section id="spa">
+			<h2>Create Single Page Applications</h2>
+		</section>
+
+		<section id="thin">
+			<h2>Thin out the server code</h2>
+		</section>
+
+		<section id="opensource">
+			<h2>Use third-party open source modules</h2>
+			<h3>Or create your own</h3>
+		</section>
+
+		<section id="mobile">
+			<h2>Replace AOLM</h2>
+		</section>
+
+		<section id="yeoman">
+			<img src="../img/yeoman-logo.png"/>
+		</section>
+
+		<section id="last">
+			<h2>Go forth, create good code, and enjoy it!</h2>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+			<br/>
+			<h3>Special Thanks to:</h3>
+			<ul>
+				<li>
+					<a href="http://angularjs.org/">The AngularJS Team</a>
+				</li>
+				<li>
+					<a href="http://nextgen.net/">Nextgen.net</a> (May be hiring: jobs@nextgen.net)
+				</li>
+				<li>
+					<a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+				</li>
+			</ul>
+
+			<aside class="notes">
+				<ul>
+					<li>Just scratches the surface</li>
+					<li>Other subjects: testing, directives, promises, routing</li>
+					<li>Third party libraries: Angular UI</li>
+				</ul>
+			</aside>
+		</section>
+
+	</div>
+
+</div>
+<script type="text/javascript" src="../lib/reveal/lib/js/head.min.js"></script>
+<script type="text/javascript" src="../lib/reveal/js/reveal.min.js"></script>
+<script type="text/javascript" src="../js/presentationInit.js"></script>
+</body>
+</html>

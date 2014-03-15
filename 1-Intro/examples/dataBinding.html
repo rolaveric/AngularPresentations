@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<title>Intro to Angular - Data Binding Example</title>
+</head>
+<body ng-controller="MyCtrl">
+	<input ng-model="value"/><br/>
+	<button ng-click="reverseValue()">reverse</button><br/>
+	<span>value: {{value}}</span>
+	<script type="text/javascript">
+	function MyCtrl($scope) {
+		$scope.value = '';
+		$scope.reverseValue = function () {
+			$scope.value = $scope.value.split('').reverse().join('');
+		}
+	}
+	</script>
+	<script type="text/javascript" src="../../lib/angular.min.js"></script>
+</body>
+</html>

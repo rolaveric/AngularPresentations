@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to Angular - Directives Example</title>
+	<style type="text/css">
+		input[readonly] {
+			border: solid gray 3px;
+		}
+	</style>
+</head>
+<body>
+<div ng-app="MyApp">
+	<input type="text" my-directive=""/>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', []).directive('myDirective', [
+			function () {
+				return {
+					priority: 0,
+					restrict: 'A',
+					replace: false,
+					link: function postLink(scope, iElement, iAttrs) {
+						iElement.bind('click', function (event) {
+							iElement.attr('readonly', !iElement.attr('readonly'));
+						});
+					}
+				};
+			}
+		]
+	);
+</script>
+</body>
+</html>

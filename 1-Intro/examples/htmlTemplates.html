@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to Angular - View Template Example</title>
+</head>
+<body>
+<div ng-app="MyApp">
+	<strong ng-init="title = 'My App'">{{title}}</strong><br/>
+	<label for="myInput">Item: </label>
+	<input id="myInput" ng-model="itemInput"/>
+	<button ng-click="items.push(itemInput)">Add</button>
+	<ul ng-init="items = []">
+		<li ng-repeat="item in items">{{item}}</li>
+	</ul>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', []);
+</script>
+</body>
+</html>

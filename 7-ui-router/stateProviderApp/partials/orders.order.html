@@ -1,0 +1,24 @@
+<div class="order-details">
+	<h3>Order: {{order.orderId}}</h3>
+
+	<div>
+		<strong>Customer:</strong>
+		<span>{{order.customer}}</span>
+	</div>
+	<div>
+		<strong>Address:</strong>
+		<span>{{order.address}}</span>
+	</div>
+	<div>
+		<strong>Items:</strong>
+		<ul>
+			<li ng-repeat="item in order.items">
+				<a class="link" ng-href="#/items/{{item.itemId}}">{{item.itemId}}</a>
+				<span> &times; {{item.quantity}}</span>
+			</li>
+		</ul>
+	</div>
+	<div class="actions">
+		<a class="btn" ng-click="$state.transitionTo('orders.order.edit', $stateParams)">Edit</a>
+	</div>
+</div>

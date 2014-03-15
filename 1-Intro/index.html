@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS Presentations - Introduction to AngularJS</title>
+	<meta name="author" content="Jason Stone"/>
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="reveal">
+
+	<div class="slides">
+
+		<section id="splash">
+			<h2 class="splash-heading">Introduction to AngularJS</h2>
+			<img class="splash-logo" src="../img/AngularJS-medium.png"/>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-email">rolaveric@gmail.com</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Welcome</li>
+					<li>My name is...</li>
+					<li>Talking about...</li>
+					<li>Ask questions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="what">
+			<h2>What can AngularJS do for you?</h2>
+			<div>
+				<img class="shield" src="../img/AngularJS-Shield-medium.png"/>
+				<span class="huge">?</span>
+			</div>
+
+			<aside class="notes">
+				<ul>
+					<li>Most ask 'what IS?'</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="saves" class="step">
+			<h3>Saves developers from Browser code that:</h3>
+			<ul>
+				<li>Constantly manipulates the DOM</li>
+				<li>Is a nightmare to test</li>
+				<li>Generally 'smells' bad</li>
+			</ul>
+
+			<aside class="notes">
+				<ul>
+					<li>Provides Structure and Tools</li>
+					<li>Less DOM manipulation</li>
+					<li>Testable Code</li>
+					<li>Fun and feels good</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="how">
+			<h1>How?</h1>
+
+			<aside class="notes">
+				<ul>
+					<li>Bold statements</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="two-way">
+			<section>
+				<h2>2-way data binding</h2>
+				<pre><code>
+&lt;input ng-model="value"/&gt;
+&lt;button ng-click="reverseValue()">reverse&lt;/button&gt;
+&lt;span&gt;{{value}}&lt;/span&gt;
+&lt;script type="text/javascript"&gt;
+function MyCtrl($scope) {
+	$scope.value = '';
+	$scope.reverseValue = function () {
+		$scope.value = $scope.value.split('').reverse().join();
+	}
+}
+&lt;/script&gt;
+				</code></pre>
+				<iframe src="examples/dataBinding.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>View reacts to model changes, and vice versa</li>
+						<li>Walk through example</li>
+						<li>input bound to model 'value' on scope</li>
+						<li>curly brackets creates a binding, which outputs scope 'value'</li>
+						<li>controller provides a method for the scope, triggered on click</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>2-way data binding</h2>
+				<img alt="http://docs.angularjs.org/guide/concepts" src="../img/concepts-runtime.png"/>
+				<a href="http://docs.angularjs.org/guide/concepts">http://docs.angularjs.org/guide/concepts</a>
+
+				<aside class="notes">
+					<ul>
+						<li>Magic doesn't happen here</li>
+						<li>Each Angular action triggers $digest</li>
+						<li>Dirty check bindings for changes til none detected</li>
+						<li>Careful with methods in bindings</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="separation">
+			<h2>Separation of concerns</h2>
+			<dl>
+				<dt>Templates</dt>
+				<dd>Declare HTML + Directives</dd>
+				<dt>Directives</dt>
+				<dd>Manipulate the DOM</dd>
+				<dt>Controllers</dt>
+				<dd>Attach behaviour to the view scope</dd>
+				<dt>Filters</dt>
+				<dd>Transform data</dd>
+				<dt>Services</dt>
+				<dd>Do the work</dd>
+			</dl>
+
+			<aside class="notes">
+				<ul>
+					<li>DOM work wrapped in directives</li>
+					<li>Lots of directives provided</li>
+					<li>Controllers glue data model to view model</li>
+					<li>Filters for formatting</li>
+					<li>Services injected as dependencies</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="injection">
+			<h2>Dependency Injection</h2>
+			<p>Doesn't matter where it comes from,<br/>just as long as it does what I say.</p>
+			<pre><code>
+function MyCtrl($scope, myDataStorage) {
+	$scope.save = function (data) {
+		myDataStorage.save(data);
+	}
+}
+
+angular.module('mongoApp', []).value('myDataStorage', {
+	save: function (data) { /* Do database stuff ... */ }
+});
+
+angular.module('testApp', []).value('myDataStorage', {
+	save: function (data) {
+		console.log('data saved: ' + angular.toJson(data);
+	}
+});
+			</code></pre>
+
+			<aside class="notes">
+				<ul>
+					<li>Loose coupling</li>
+					<li>Swap for testing and IO</li>
+					<li>Learning curve sticking point</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="zen-break">
+			<h1>Zen Moment</h1>
+			<div>Image source <a href="http://www.morguefile.com/">http://www.morguefile.com/</a></div>
+
+			<aside class="notes">
+				<ul>
+					<li>Press 'b'</li>
+					<li>Breathe</li>
+					<li>Answer questions</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="components">
+			<h1>AngularJS Components</h1>
+
+			<aside class="notes">
+				<ul>
+					<li>Tour building blocks</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="templates">
+			<h2>View Templates</h2>
+			<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;strong ng-init="title = 'My App'"&gt;{{title}}&lt;/strong&gt;&lt;br/&gt;
+	&lt;label for="myInput"&gt;Item: &lt;/label&gt;
+	&lt;input id="myInput" ng-model="itemInput"/&gt;
+	&lt;button ng-click="items.push(itemInput)"&gt;Add&lt;/button&gt;
+	&lt;ul ng-init="items = []"&gt;
+		&lt;li ng-repeat="item in items"&gt;{{item}}&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript" src="../../lib/angular.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	angular.module('MyApp', []);
+&lt;/script&gt;</code></pre>
+			<iframe src="examples/htmlTemplates.html"></iframe>
+
+			<aside class="notes">
+				<ul>
+					<li>Declarative</li>
+					<li>What, not How</li>
+					<li>Walk through example</li>
+					<li>Bindings</li>
+					<li>Push complexities to Controller or Directive</li>
+					<li>Point out directives</li>
+					<li>Explain $compile process</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="controllers">
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Controllers attach data models to the scope.</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-controller="MyCtrl"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;myValue: &lt;/strong&gt;
+		&lt;input ng-model="myValue"/&gt;
+		&lt;em&gt; {{myValue}}&lt;/em&gt;
+	&lt;/div&gt;
+	&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+function MyCtrl($scope) {
+	$scope.myValue = 'My Value';
+	$scope.myMethod = function (value) {
+		$scope.myValue = value;
+	};
+}
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/controllers1.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Sets $scope properties</li>
+						<li>Scopes created by directives</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Scopes are attached to the view.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;button ng-click="myMethod('myValue')"&gt;reset&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/controllers2.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Same controller - different scope</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>Scopes inherit from their parent scope.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myValue: &lt;/strong&gt;
+			&lt;input ng-model="myValue"/&gt;
+			&lt;em&gt; {{myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;div ng-controller="ChildCtrl"&gt;
+			&lt;div&gt;
+				&lt;strong&gt;myValue: &lt;/strong&gt;
+				&lt;input ng-model="myValue"/&gt;
+				&lt;em&gt; {{myValue}}&lt;/em&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	function ChildCtrl($scope) {}
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/controllers3.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Scopes are hierarchical</li>
+						<li>Isolate scopes</li>
+						<li>Walk through example</li>
+						<li>Show scope disconnect</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Controllers and Scopes</h2>
+				<p>The scope is NOT your data model.</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;div&gt;
+			&lt;strong&gt;myModel.myValue: &lt;/strong&gt;
+			&lt;input ng-model="myModel.myValue"/&gt;
+			&lt;em&gt; {{myModel.myValue}}&lt;/em&gt;
+		&lt;/div&gt;
+		&lt;div ng-controller="ChildCtrl"&gt;
+			&lt;div&gt;
+				&lt;strong&gt;myModel.myValue: &lt;/strong&gt;
+				&lt;input ng-model="myModel.myValue"/&gt;
+				&lt;em&gt; {{myModel.myValue}}&lt;/em&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/controllers4.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Mutable objects</li>
+						<li>Rule: model bindings have a dot</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="filters">
+			<section>
+				<h2>Filters</h2>
+				<p>Take an input and produce a single output</p>
+				<pre><code>&lt;div ng-app=""&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value" value="My Value"/&gt;
+		&lt;em&gt; {{value | uppercase}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div></code></pre>
+				<iframe src="examples/filters1.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Filters are functions</li>
+						<li>Pipe syntax</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<p>Filters can take additional parameters:<br/>
+					input:param1:param2:...</p>
+				<pre><code>&lt;div ng-app="" ng-init="value = [1,2,3,4,5,6,7,8,9]; limit = 9"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;Limit To: &lt;/strong&gt;
+		&lt;input ng-model="limit"/&gt;
+		&lt;em&gt; {{value | limitTo:limit}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div></code></pre>
+				<iframe src="examples/filters2.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Parameters with colon</li>
+						<li>Performance concern</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<p>Filters are defined as a function which returns (or provides) the filter function that gets run</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-init="value = 'My Value'"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value"/&gt;
+		&lt;em&gt; {{value | ni:' BATANG!'}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	angular.module('MyApp', []).filter('ni', function () {
+		return function (input, suffix) {
+			return input + ' NI!' + suffix;
+		};
+	});
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/filters3.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Function returns a function</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Filters</h2>
+				<p>They can also be chained together</p>
+				<pre><code>&lt;div ng-app="MyApp" ng-init="value = 'My Value'"&gt;
+	&lt;div&gt;
+		&lt;strong&gt;value: &lt;/strong&gt;
+		&lt;input ng-model="value"/&gt;
+		&lt;em&gt; {{value | uppercase | ni:' BATANG!'}}&lt;/em&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<iframe src="examples/filters4.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Chaining with multiple pipes</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="services">
+			<section>
+				<h2>Services</h2>
+				<p>Injectable singletons</p>
+				<pre><code>&lt;div ng-app="MyApp"&gt;
+	&lt;div ng-controller="MyCtrl"&gt;
+		&lt;strong&gt;myService.myValue: &lt;/strong&gt;
+		&lt;input ng-model="myService.myValue"/&gt;
+		&lt;em&gt; {{myService.myValue}}&lt;/em&gt;
+	&lt;/div&gt;
+	&lt;div ng-controller="MyCtrl"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+angular.module('MyApp', []).factory('myService', function () {
+	return {myValue: 'Service value'};
+});
+function MyCtrl($scope, myService) {
+	$scope.myService = myService;
+}
+&lt;/script&gt;</code></pre>
+				<iframe src="examples/services.html"></iframe>
+
+				<aside class="notes">
+					<ul>
+						<li>Singletons</li>
+						<li>Injectable</li>
+						<li>Cross-controller communication</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>Three methods for creating services</p>
+				<ul>
+					<li>value(name, value)</li>
+					<li>factory(name, factoryFn)</li>
+					<li>service(name, constructorFn)</li>
+				</ul>
+
+				<aside class="notes">
+					<ul>
+						<li>3 creation methods</li>
+						<li>Source of confusion</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.value() - Simple key -> value</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.value('myService', {myValue: 'Service value'});
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = myService"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>Simple key-value pairing</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.factory() - Factory method</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.factory('myService', ['anotherService',
+		function (anotherService) {
+			return {myValue: 'Service value'};
+		}]
+	);
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = myService(dependencies)"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>function returns service</li>
+						<li>Can inject dependencies</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section>
+				<h2>Services</h2>
+				<p>module.service() - Constructor method</p>
+				<pre><code>&lt;script type="text/javascript"&gt;
+	var mod = angular.module('MyApp', []);
+
+	mod.service('myService', ['anotherService',
+		function (anotherService) {
+			this.myValue = 'Service value';
+		}]
+	);
+&lt;/script&gt;</code></pre>
+				<p>Called as "var service = new myService(dependencies)"</p>
+
+				<aside class="notes">
+					<ul>
+						<li>Most confusing</li>
+						<li>Looks like factory()</li>
+						<li>Define constructor</li>
+						<li>Called with 'new'</li>
+						<li>Which one to use?</li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+
+		<section id="directives">
+			<h2>Directives</h2>
+			<p>Creating new behaviour on the DOM</p>
+			<p>
+				<a href="http://egghead.io">http://egghead.io/ - John Lindquist</a>
+			</p>
+			<pre><code>&lt;input type="text" my-directive=""/&gt;
+
+&lt;script type="text/javascript"&gt;
+mod.directive('myDirective', ['myService', function (myService) {
+  return {
+    priority: 0,
+    restrict: 'A',
+    replace: false,
+    link: function postLink(scope, iElement, iAttrs) {
+      iElement.bind('click', function (event) {
+        iElement.attr('readonly', !iElement.attr('readonly'));
+      });
+    }
+  };
+}]);
+&lt;script&gt;</code></pre>
+			<iframe src="examples/directives.html"></iframe>
+
+			<aside class="notes">
+				<ul>
+					<li>Complex - own presentation</li>
+					<li>Used for DOM manipulation</li>
+					<li>All built in directive use same system - eg. ng-repeat</li>
+					<li>Checkout egghead.io</li>
+				</ul>
+			</aside>
+		</section>
+
+		<section id="last">
+			<h2>Go forth, create good code, and enjoy it!</h2>
+			<div class="author">
+				<div class="author-name">Jason Stone</div>
+				<div class="author-email">rolaveric@gmail.com</div>
+				<div class="author-github">
+					<a href="https://github.com/rolaveric/AngularPresentations" target="_blank">https://github.com/rolaveric/AngularPresentations</a>
+				</div>
+			</div>
+			<br/>
+			<h3>Special Thanks to:</h3>
+			<ul>
+				<li>
+					<a href="http://angularjs.org/">The AngularJS Team</a>
+				</li>
+				<li>
+					<a href="http://nextgen.net/">Nextgen.net</a> (May be hiring: jobs@nextgen.net)
+				</li>
+				<li>
+					<a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+				</li>
+				<li>
+					<a href="http://www.morguefile.com/">morgueFile.com</a>
+				</li>
+			</ul>
+
+			<aside class="notes">
+				<ul>
+					<li>Just scratches the surface</li>
+					<li>Other subjects: testing, directives, promises, routing</li>
+					<li>Third party libraries: Angular UI</li>
+				</ul>
+			</aside>
+		</section>
+
+	</div>
+
+</div>
+<script type="text/javascript" src="../lib/reveal/lib/js/head.min.js"></script>
+<script type="text/javascript" src="../lib/reveal/js/reveal.min.js"></script>
+<script type="text/javascript" src="../js/presentationInit.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to Angular - Controllers Example 1</title>
+</head>
+<body>
+<div ng-app="MyApp" ng-controller="MyCtrl">
+	<div>
+		<strong>myValue: </strong>
+		<input ng-model="myValue"/>
+		<em> {{myValue}}</em>
+	</div>
+	<button ng-click="myMethod('myValue')">reset</button>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', []);
+
+	function MyCtrl($scope) {
+		$scope.myValue = 'My Value';
+		$scope.myMethod = function (value) {
+			$scope.myValue = value;
+		};
+	}
+</script>
+</body>
+</html>

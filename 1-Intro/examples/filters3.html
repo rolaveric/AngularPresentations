@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intro to Angular - Filters Example 3</title>
+</head>
+<body>
+<div ng-app="MyApp" ng-init="value = 'My Value'">
+	<div>
+		<strong>value: </strong>
+		<input ng-model="value"/>
+		<em> {{value | ni:' BATANG!'}}</em>
+	</div>
+</div>
+<script type="text/javascript" src="../../lib/angular.min.js"></script>
+<script type="text/javascript">
+	angular.module('MyApp', []).filter('ni', function () {
+		return function (input, suffix) {
+			return input + ' NI!' + suffix;
+		};
+	});
+</script>
+</body>
+</html>
